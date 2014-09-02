@@ -11,8 +11,8 @@ class HotelsController < ApplicationController
     Expedia.currency_code = 'USD'
     Expedia.minor_rev = 13
     api = Expedia::Api.new
-    response = api.get_list({:hotelId => 163970, :city => 'Philadelphia'})
-    @hotels = response.body['HotelListResponse']['HotelList']['HotelSummary'][0]
+    response = api.get_list({:destinationString => 'Media', :stateProvinceCode => 'PA'})
+    @hotels = response.body['HotelListResponse']['HotelList']['HotelSummary']
 
   end
 

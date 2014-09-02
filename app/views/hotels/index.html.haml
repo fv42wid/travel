@@ -4,10 +4,12 @@
   %thead
     %tr
       %th Hotel
-      %th
+      %th City
       %th
   %tbody
-    %tr
-      %td= @hotels['name']
-
+    - @hotels.each do |hotel|
+      %tr
+        %td= hotel['name']
+        %td= hotel['city']
+        %td= link_to 'Details', hotel_path(hotel['hotelId'])
 %br
