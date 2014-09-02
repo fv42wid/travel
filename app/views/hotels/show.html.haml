@@ -1,5 +1,8 @@
 %p#notice= notice
 
+%h1= @hotel['name']
+%h2= @hotel['city']
+%p= @hotel['shortDescription']
 
 = link_to 'Edit', edit_hotel_path(@hotel)
 \|

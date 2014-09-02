@@ -1,17 +1,12 @@
 class HotelsController < ApplicationController
-  before_action :set_hotel, only: [:show, :edit, :update, :destroy]
+  before_action :set_hotel, only: [:edit, :update, :destroy]
+  before_action :config_expedia, only: [:index, :show]
 
   # GET /hotels
   # GET /hotels.json
   def index
-    Expedia.cid = 55505
-    Expedia.api_key = 'yt2mfcm9eua5dydntsd477qs'
-    Expedia.shared_secret = 'Z7ctwvaN'
-    Expedia.locale = 'en_US'
-    Expedia.currency_code = 'USD'
-    Expedia.minor_rev = 13
-    api = Expedia::Api.new
-    response = api.get_list({:destinationString => 'Media', :stateProvinceCode => 'PA'})
+
+    response = @api.get_list({:destinationString => 'Media', :stateProvinceCode => 'PA'})
     @hotels = response.body['HotelListResponse']['HotelList']['HotelSummary']
 
   end
@@ -19,6 +14,8 @@ class HotelsController < ApplicationController
   # GET /hotels/1
   # GET /hotels/1.json
   def show
+    response = @api.get_list({:hotelId => @hotel_id, :destinationString => 'Media'})
+    @hotel = response.body['HotelListResponse']['HotelList']['HotelSummary'][0]
   end
 
   # GET /hotels/new
@@ -73,7 +70,18 @@ class HotelsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hotel
-      @hotel = Hotel.find(params[:id])
+      @hotel_id = params[:id]
+    end
+
+    def config_expedia
+
+      Expedia.cid = 55505
+      Expedia.api_key = 'yt2mfcm9eua5dydntsd477qs'
+      Expedia.shared_secret = 'Z7ctwvaN'
+      Expedia.locale = 'en_US'
+      Expedia.currency_code = 'USD'
+      Expedia.minor_rev = 13
+      @api = Expedia::Api.new
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
