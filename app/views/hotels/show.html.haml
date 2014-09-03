@@ -1,8 +1,18 @@
 %p#notice= notice
 
-%h1= @hotel['name']
-%h2= @hotel['city']
-%p= @hotel['shortDescription']
+%div.row
+  %div.col-sm-8
+    %div.row
+      %div.col-sm-8
+        %h1= @hotel['name']
+      %div.col-sm-4.hotel-star
+        - @hotel['hotelRating'].times do
+          %span.glyphicon.glyphicon-star
+
+%div.row
+  %div.col-sm-8
+    %h2= @hotel['city']
+    %p= @hotel['shortDescription']
 
 = link_to 'Edit', edit_hotel_path(@hotel)
 \|

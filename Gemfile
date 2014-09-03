@@ -29,6 +29,7 @@ gem 'spring',        group: :development
 
 gem 'haml-rails'
 gem 'expedia'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
