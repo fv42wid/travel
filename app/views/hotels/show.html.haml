@@ -6,6 +6,8 @@
       %div.col-sm-8
         %h1= @hotel['name']
       %div.col-sm-4.hotel-star
+        %small Rating
+        %br
         - @hotel['hotelRating'].times do
           %span.glyphicon.glyphicon-star
 
